@@ -88,3 +88,10 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+# Ignore the binaries for running rust
+ZT Client GUI - Take home test/daemon-lite/daemon-lite-src/target
+
+# Ignore any lock files
+*.lock
+
