@@ -18,11 +18,6 @@ struct DaemonResponseData: Codable {
     let message: String?
 }
 
-enum RequestStatus: String, Codable {
-    case success
-    case error
-}
-
 enum DaemonStatus: String, Codable {
     case connected
     case disconnected

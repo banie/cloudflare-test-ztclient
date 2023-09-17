@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		7134507C2AB7446A00A61D30 /* ConnectionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134507B2AB7446A00A61D30 /* ConnectionResponse.swift */; };
+		7134507E2AB760BD00A61D30 /* GetAuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134507D2AB760BD00A61D30 /* GetAuthToken.swift */; };
+		713450822AB7610E00A61D30 /* GetAuthTokenFromRegistrationApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450812AB7610E00A61D30 /* GetAuthTokenFromRegistrationApi.swift */; };
+		713450862AB76B7100A61D30 /* NetworkRequestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450852AB76B7100A61D30 /* NetworkRequestInteractor.swift */; };
+		713450882AB76BCA00A61D30 /* NetworkRequestApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450872AB76BCA00A61D30 /* NetworkRequestApi.swift */; };
+		7134508A2AB7709B00A61D30 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450892AB7709B00A61D30 /* URLRequest+Extension.swift */; };
+		7134508C2AB7724A00A61D30 /* AuthenticationTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134508B2AB7724A00A61D30 /* AuthenticationTokenResponse.swift */; };
+		7134508E2AB772B100A61D30 /* RequestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134508D2AB772B100A61D30 /* RequestStatus.swift */; };
 		71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */; };
 		71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC692AB28A640056DD71 /* ztclientApp.swift */; };
 		71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC6B2AB28A640056DD71 /* ContentView.swift */; };
@@ -37,6 +44,13 @@
 
 /* Begin PBXFileReference section */
 		7134507B2AB7446A00A61D30 /* ConnectionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionResponse.swift; sourceTree = "<group>"; };
+		7134507D2AB760BD00A61D30 /* GetAuthToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAuthToken.swift; sourceTree = "<group>"; };
+		713450812AB7610E00A61D30 /* GetAuthTokenFromRegistrationApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAuthTokenFromRegistrationApi.swift; sourceTree = "<group>"; };
+		713450852AB76B7100A61D30 /* NetworkRequestInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestInteractor.swift; sourceTree = "<group>"; };
+		713450872AB76BCA00A61D30 /* NetworkRequestApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestApi.swift; sourceTree = "<group>"; };
+		713450892AB7709B00A61D30 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
+		7134508B2AB7724A00A61D30 /* AuthenticationTokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTokenResponse.swift; sourceTree = "<group>"; };
+		7134508D2AB772B100A61D30 /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
 		71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		71EEEC662AB28A640056DD71 /* ztclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ztclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EEEC692AB28A640056DD71 /* ztclientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ztclientApp.swift; sourceTree = "<group>"; };
@@ -95,9 +109,31 @@
 		7134507A2AB7444200A61D30 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7134508B2AB7724A00A61D30 /* AuthenticationTokenResponse.swift */,
 				7134507B2AB7446A00A61D30 /* ConnectionResponse.swift */,
+				7134508D2AB772B100A61D30 /* RequestStatus.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		7134507F2AB760C300A61D30 /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				7134507D2AB760BD00A61D30 /* GetAuthToken.swift */,
+				713450802AB760EE00A61D30 /* Network */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		713450802AB760EE00A61D30 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				713450812AB7610E00A61D30 /* GetAuthTokenFromRegistrationApi.swift */,
+				713450872AB76BCA00A61D30 /* NetworkRequestApi.swift */,
+				713450852AB76B7100A61D30 /* NetworkRequestInteractor.swift */,
+				713450892AB7709B00A61D30 /* URLRequest+Extension.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		71EEEC5D2AB28A640056DD71 = {
@@ -123,6 +159,7 @@
 		71EEEC682AB28A640056DD71 /* ztclient */ = {
 			isa = PBXGroup;
 			children = (
+				7134507F2AB760C300A61D30 /* Interactors */,
 				7134507A2AB7444200A61D30 /* Models */,
 				713450792AB7443A00A61D30 /* ViewModels */,
 				713450782AB743DE00A61D30 /* Views */,
@@ -290,9 +327,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */,
+				713450882AB76BCA00A61D30 /* NetworkRequestApi.swift in Sources */,
+				7134508C2AB7724A00A61D30 /* AuthenticationTokenResponse.swift in Sources */,
+				713450822AB7610E00A61D30 /* GetAuthTokenFromRegistrationApi.swift in Sources */,
 				71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */,
 				71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */,
 				7134507C2AB7446A00A61D30 /* ConnectionResponse.swift in Sources */,
+				7134507E2AB760BD00A61D30 /* GetAuthToken.swift in Sources */,
+				7134508A2AB7709B00A61D30 /* URLRequest+Extension.swift in Sources */,
+				7134508E2AB772B100A61D30 /* RequestStatus.swift in Sources */,
+				713450862AB76B7100A61D30 /* NetworkRequestInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
