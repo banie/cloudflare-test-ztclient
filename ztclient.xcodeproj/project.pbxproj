@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7134507C2AB7446A00A61D30 /* ConnectionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134507B2AB7446A00A61D30 /* ConnectionResponse.swift */; };
 		71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */; };
 		71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC692AB28A640056DD71 /* ztclientApp.swift */; };
 		71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC6B2AB28A640056DD71 /* ContentView.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7134507B2AB7446A00A61D30 /* ConnectionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionResponse.swift; sourceTree = "<group>"; };
 		71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		71EEEC662AB28A640056DD71 /* ztclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ztclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EEEC692AB28A640056DD71 /* ztclientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ztclientApp.swift; sourceTree = "<group>"; };
@@ -74,6 +76,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		713450782AB743DE00A61D30 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				71EEEC6B2AB28A640056DD71 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		713450792AB7443A00A61D30 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7134507A2AB7444200A61D30 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7134507B2AB7446A00A61D30 /* ConnectionResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		71EEEC5D2AB28A640056DD71 = {
 			isa = PBXGroup;
 			children = (
@@ -97,12 +123,13 @@
 		71EEEC682AB28A640056DD71 /* ztclient */ = {
 			isa = PBXGroup;
 			children = (
+				7134507A2AB7444200A61D30 /* Models */,
+				713450792AB7443A00A61D30 /* ViewModels */,
+				713450782AB743DE00A61D30 /* Views */,
 				71EEEC692AB28A640056DD71 /* ztclientApp.swift */,
-				71EEEC6B2AB28A640056DD71 /* ContentView.swift */,
 				71EEEC6D2AB28A660056DD71 /* Assets.xcassets */,
 				71EEEC6F2AB28A660056DD71 /* ztclient.entitlements */,
 				71EEEC702AB28A660056DD71 /* Preview Content */,
-				71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */,
 			);
 			path = ztclient;
 			sourceTree = "<group>";
@@ -265,6 +292,7 @@
 				71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */,
 				71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */,
 				71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */,
+				7134507C2AB7446A00A61D30 /* ConnectionResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
