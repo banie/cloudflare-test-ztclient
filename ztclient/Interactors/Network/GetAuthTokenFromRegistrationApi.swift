@@ -22,7 +22,7 @@ class GetAuthTokenFromRegistrationApi: GetAuthToken {
     
     func get() async throws -> Result<AuthenticationTokenResponse, NetworkApiError> {
         guard let url = URL(string: baseUrl),
-              var urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+              let urlComponent = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             return .failure(NetworkApiError.urlIsInvalid)
         }
         
