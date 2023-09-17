@@ -8,14 +8,14 @@
 import Foundation
 
 class GetAuthTokenFromRegistrationApi: GetAuthToken {
-    let baseUrl = "https://warp-registration.warpdir2792.GET workers.dev/"
+    let baseUrl = "https://warp-registration.warpdir2792.workers.dev/"
     let authHeaderKey = "X-Auth-Key"
     let authHeaderValue = "3735928559"
     
-    let networkRequestApi: NetworkRequestApi
-    let decoder: JSONDecoder
+    private let networkRequestApi: NetworkRequestApi
+    private let decoder: JSONDecoder
     
-    init(path: String, networkRequestApi: NetworkRequestApi) {
+    init(networkRequestApi: NetworkRequestApi = NetworkRequestInteractor()) {
         decoder = JSONDecoder()
         self.networkRequestApi = networkRequestApi
     }

@@ -10,12 +10,32 @@ import Foundation
 class ClientViewModel: ObservableObject {
     
     @Published var status: String = "..."
+    @Published var token: String = "..."
     
     private let SOCKET_PATH = "/tmp/daemon-lite"
     private let decoder: JSONDecoder
     
     init() {
         self.decoder = JSONDecoder()
+    }
+    
+    func getAuthToken() async {
+        let authInteractor = GetAuthTokenFromRegistrationApi()
+        do {
+            switch try await authInteractor.get() {
+            case .success(let response):
+                await MainActor.run {
+                    self.token = response.status.rawValue
+                }
+            case .failure(let networkApiError):
+                await MainActor.run {
+                    token = networkApiError.localizedDescription
+                }
+            }
+            
+        } catch let error {
+            print("Getting error: \(error)")
+        }
     }
     
     func getStatus() async {
@@ -72,10 +92,10 @@ class ClientViewModel: ObservableObject {
             await MainActor.run {
                 status = responseModel.status.rawValue
             }
-            
-            close(socketFD)
         } catch let parseError {
             print("Failed to serialize JSON: \(parseError.localizedDescription)")
         }
+        
+        close(socketFD)
     }
 }

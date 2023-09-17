@@ -12,17 +12,19 @@ struct ContentView: View {
     @StateObject private var viewModel = ClientViewModel()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
             Text(viewModel.status)
+            Text(viewModel.token)
         }
-        .padding()
+        .padding(20)
         .onAppear() {
             Task.detached {
                 await self.viewModel.getStatus()
+                await self.viewModel.getAuthToken()
             }
         }
     }
