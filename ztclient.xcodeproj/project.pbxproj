@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */; };
 		71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC692AB28A640056DD71 /* ztclientApp.swift */; };
 		71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC6B2AB28A640056DD71 /* ContentView.swift */; };
 		71EEEC6E2AB28A660056DD71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71EEEC6D2AB28A660056DD71 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		71EEEC662AB28A640056DD71 /* ztclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ztclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EEEC692AB28A640056DD71 /* ztclientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ztclientApp.swift; sourceTree = "<group>"; };
 		71EEEC6B2AB28A640056DD71 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				71EEEC6D2AB28A660056DD71 /* Assets.xcassets */,
 				71EEEC6F2AB28A660056DD71 /* ztclient.entitlements */,
 				71EEEC702AB28A660056DD71 /* Preview Content */,
+				71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */,
 			);
 			path = ztclient;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */,
+				71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */,
 				71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +421,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ztclient/Preview Content\"";
 				DEVELOPMENT_TEAM = MYLMTDS54F;
 				ENABLE_HARDENED_RUNTIME = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -455,6 +460,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ztclient/Preview Content\"";
 				DEVELOPMENT_TEAM = MYLMTDS54F;
 				ENABLE_HARDENED_RUNTIME = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;

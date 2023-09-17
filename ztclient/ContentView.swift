@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var viewModel = ClientViewModel()
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
+            Text(viewModel.status)
         }
         .padding()
+        .onAppear() {
+            Task.detached {
+                await self.viewModel.getStatus()
+            }
+        }
     }
 }
 
