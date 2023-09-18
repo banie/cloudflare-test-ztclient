@@ -157,20 +157,18 @@ class ClientViewModel: ObservableObject {
                     }
                 }
             case .error:
-                showDisconnect(with: response.message)
+                showErrorMessage(with: response.message)
             }
             
         case .failure(let error):
-            status = disconnectedText
-            description = defaultDisconnectedMessage
             if let socketApiError = error as? SocketApiError {
                 switch socketApiError {
                 case .socketCreationFailure:
-                    errorMessage = "Failed in creating the Socket"
+                    showErrorMessage(with: "Failed in creating the Socket")
                 case .socketConnectionFailure:
-                    errorMessage = "Failed in connecting to the Socket"
+                    showErrorMessage(with: "Failed in connecting to the Socket")
                 case .serializationFailure(let serializationError):
-                    errorMessage = "Failed in serializing the data to the Socket. \(serializationError.localizedDescription)"
+                    showErrorMessage(with: "Failed in serializing the data to the Socket. \(serializationError.localizedDescription)")
                 }
             }
         }
@@ -179,6 +177,10 @@ class ClientViewModel: ObservableObject {
     @MainActor private func showDisconnect(with errorText: String? = nil) {
         status = disconnectedText
         description = defaultDisconnectedMessage
+        showErrorMessage(with: errorText)
+    }
+    
+    @MainActor private func showErrorMessage(with errorText: String? = nil) {
         errorMessage = errorText ?? defaultErrorAuthTokenMessage
     }
 }
