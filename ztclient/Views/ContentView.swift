@@ -32,9 +32,6 @@ struct ContentView: View {
         .padding(20)
         .onAppear() {
             viewModel.refresh()
-            Task.detached {
-                await self.viewModel.getAuthToken()
-            }
         }
     }
 }

@@ -7,6 +7,15 @@
 
 import Foundation
 
+struct CachedAuthToken {
+    let token: Int
+    let expiry: Double
+    
+    var isExpired: Bool {
+        Date().timeIntervalSince1970 > expiry
+    }
+}
+
 class ClientViewModel: ObservableObject {
     
     @Published var status: String = "..."
@@ -15,11 +24,13 @@ class ClientViewModel: ObservableObject {
 
     private let interactorFactory: InteractorFactory
     private var statusUpdateTimer: Timer?
+    private var cachedAuthToken: CachedAuthToken?
     
     private let connectedText = "Connected"
     private let disconnectedText = "Disconnected"
     private let defaultConnectedMessage = "Your Internet is private"
     private let defaultDisconnectedMessage = "Your Internet is not private"
+    private let defaultErrorAuthTokenMessage = "Error in fetching authentication token"
     
     init(interactorFactory: InteractorFactory = InteractorFactoryForProduction()) {
         self.interactorFactory = interactorFactory
@@ -49,71 +60,108 @@ class ClientViewModel: ObservableObject {
     private func getStatus() async {
         let getInteractor = interactorFactory.makeGetConnectionStatus()
         do {
-            switch try await getInteractor.get() {
-            case .success(let response):
-                await MainActor.run {
+            let result = try await getInteractor.get()
+            await handle(result)
+        } catch let error {
+            status = disconnectedText
+            description = defaultDisconnectedMessage
+            errorMessage = error.localizedDescription
+        }
+    }
+    
+    func connect() async {
+        let token: Int
+        if let authToken = cachedAuthToken, authToken.isExpired == false {
+            token = authToken.token
+            cachedAuthToken = nil
+        } else {
+            let authInteractor = interactorFactory.makeGetAuthTokenInteractor()
+            do {
+                switch try await authInteractor.get() {
+                case .success(let response):
                     switch response.status {
                     case .success:
                         if let data = response.data {
-                            switch data.daemon_status {
-                            case .connected:
-                                self.status = connectedText
-                                self.description = defaultConnectedMessage
-                                self.errorMessage = ""
-                            case .disconnected:
-                                self.status = disconnectedText
-                                self.description = defaultDisconnectedMessage
-                                if let message = data.message {
-                                    self.errorMessage = message
-                                }
-                            }
+                            token = data.auth_token
+                            cachedAuthToken = CachedAuthToken(token: token,
+                                                              expiry: Date().addingTimeInterval(5 * 60).timeIntervalSince1970)
+                        } else {
+                            self.status = disconnectedText
+                            self.description = defaultDisconnectedMessage
+                            self.errorMessage = defaultErrorAuthTokenMessage
+                            return
                         }
                     case .error:
                         self.status = disconnectedText
                         self.description = defaultDisconnectedMessage
-                        if let message = response.message {
+                        self.errorMessage = response.message ?? defaultErrorAuthTokenMessage
+                        return
+                    }
+                case .failure(let networkApiError):
+                    self.status = disconnectedText
+                    self.description = defaultDisconnectedMessage
+                    self.errorMessage = networkApiError.localizedDescription
+                    return
+                }
+            } catch let error {
+                self.status = disconnectedText
+                self.description = defaultDisconnectedMessage
+                self.errorMessage = error.localizedDescription
+                return
+            }
+        }
+        
+        let connectInteractor = interactorFactory.makeConnectToVpn()
+        do {
+            let result = try await connectInteractor.connect(with: token)
+            await handle(result)
+        } catch let error {
+            status = disconnectedText
+            description = defaultDisconnectedMessage
+            errorMessage = error.localizedDescription
+        }
+    }
+    
+    @MainActor private func handle(_ result: Result<ConnectionResponse, Error>) {
+        switch result {
+        case .success(let response):
+            switch response.status {
+            case .success:
+                if let data = response.data {
+                    switch data.daemon_status {
+                    case .connected:
+                        self.status = connectedText
+                        self.description = defaultConnectedMessage
+                        self.errorMessage = ""
+                    case .disconnected:
+                        self.status = disconnectedText
+                        self.description = defaultDisconnectedMessage
+                        if let message = data.message {
                             self.errorMessage = message
                         }
                     }
                 }
-            case .failure(let error):
-                await MainActor.run {
-                    self.status = disconnectedText
-                    self.description = defaultDisconnectedMessage
-                    if let socketApiError = error as? SocketApiError {
-                        switch socketApiError {
-                        case .socketCreationFailure:
-                            self.errorMessage = "Failed in creating the Socket"
-                        case .socketConnectionFailure:
-                            self.errorMessage = "Failed in connecting to the Socket"
-                        case .serializationFailure(let serializationError):
-                            self.errorMessage = "Failed in serializing the data to the Socket. \(serializationError.localizedDescription)"
-                        }
-                    }
+            case .error:
+                self.status = disconnectedText
+                self.description = defaultDisconnectedMessage
+                if let message = response.message {
+                    self.errorMessage = message
                 }
             }
             
-        } catch let error {
-            print("Getting error: \(error)")
-        }
-    }
-    
-    func getAuthToken() async {
-        let authInteractor = interactorFactory.makeGetAuthTokenInteractor()
-        do {
-            switch try await authInteractor.get() {
-            case .success(let response):
-                await MainActor.run {
-//                    self.token = response.status.rawValue
-                }
-            case .failure(let networkApiError):
-                await MainActor.run {
-//                    token = networkApiError.localizedDescription
+        case .failure(let error):
+            self.status = disconnectedText
+            self.description = defaultDisconnectedMessage
+            if let socketApiError = error as? SocketApiError {
+                switch socketApiError {
+                case .socketCreationFailure:
+                    self.errorMessage = "Failed in creating the Socket"
+                case .socketConnectionFailure:
+                    self.errorMessage = "Failed in connecting to the Socket"
+                case .serializationFailure(let serializationError):
+                    self.errorMessage = "Failed in serializing the data to the Socket. \(serializationError.localizedDescription)"
                 }
             }
-            
-        } catch let error {
-            print("Getting error: \(error)")
         }
     }
 }

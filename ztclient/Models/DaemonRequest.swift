@@ -8,7 +8,7 @@
 import Foundation
 
 enum DaemonRequest: Codable {
-    case connect(Int64)
+    case connect(Int)
     case disconnect
     case get_status
 
@@ -20,7 +20,7 @@ enum DaemonRequest: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         if let connectContainer = try? container.nestedContainer(keyedBy: ConnectKeys.self, forKey: .request),
-           let value = try? connectContainer.decode(Int64.self, forKey: .connect) {
+           let value = try? connectContainer.decode(Int.self, forKey: .connect) {
             self = .connect(value)
             return
         }
