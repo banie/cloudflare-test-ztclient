@@ -20,11 +20,14 @@ struct ContentView: View {
                 .foregroundColor(.orange)
             Toggle("", isOn: $isOn)
                         .toggleStyle(SwitchToggleStyle(tint: .orange))
-                        .scaleEffect(2.0)
+                        .scaleEffect(3.0)
                         .padding()
             Text(viewModel.status)
                 .font(.title)
-            Text(viewModel.token)
+            Text(viewModel.description)
+                .font(.title2)
+            Text(viewModel.errorMessage)
+                .foregroundColor(.red)
         }
         .padding(20)
         .onAppear() {
