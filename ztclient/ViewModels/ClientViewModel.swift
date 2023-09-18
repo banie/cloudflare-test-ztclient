@@ -23,10 +23,13 @@ class ClientViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var isToggleOn: Bool = false {
                     didSet {
-                        toggleStateChanged()
+                        if userInitiated {
+                            toggleStateChanged()
+                        }
                     }
                 }
 
+    private var userInitiated = true
     private var statusUpdateTimer: Timer?
     private var cachedAuthToken: CachedAuthToken?
     
@@ -35,7 +38,7 @@ class ClientViewModel: ObservableObject {
     private let disconnectedText = "Disconnected"
     private let defaultConnectedMessage = "Your Internet is private"
     private let defaultDisconnectedMessage = "Your Internet is not private"
-    private let defaultErrorAuthTokenMessage = "Error in fetching authentication token"
+    private let defaultErrorAuthTokenMessage = "There is no data returned in the authentication request"
     
     init(interactorFactory: InteractorFactory = InteractorFactoryForProduction()) {
         self.interactorFactory = interactorFactory
@@ -112,7 +115,7 @@ class ClientViewModel: ObservableObject {
                             cachedAuthToken = CachedAuthToken(token: token,
                                                               expiry: Date().addingTimeInterval(5 * 60).timeIntervalSince1970)
                         } else {
-                            await showDisconnect()
+                            await showDisconnect(with: defaultErrorAuthTokenMessage)
                             return
                         }
                     case .error:
@@ -149,6 +152,7 @@ class ClientViewModel: ObservableObject {
                     switch data.daemon_status {
                     case .connected:
                         cachedAuthToken = nil
+                        updateToggleStateProgrammatically(with: true)
                         status = connectedText
                         description = defaultConnectedMessage
                         errorMessage = ""
@@ -175,12 +179,19 @@ class ClientViewModel: ObservableObject {
     }
     
     @MainActor private func showDisconnect(with errorText: String? = nil) {
+        updateToggleStateProgrammatically(with: false)
         status = disconnectedText
         description = defaultDisconnectedMessage
         showErrorMessage(with: errorText)
     }
     
     @MainActor private func showErrorMessage(with errorText: String? = nil) {
-        errorMessage = errorText ?? defaultErrorAuthTokenMessage
+        errorMessage = errorText ?? ""
+    }
+    
+    @MainActor private func updateToggleStateProgrammatically(with value: Bool) {
+        userInitiated = false
+        isToggleOn = value
+        userInitiated = true
     }
 }
