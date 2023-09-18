@@ -11,14 +11,12 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ClientViewModel
     
-    @State private var isOn = false
-    
     var body: some View {
         VStack(spacing: 20) {
             Text("Cloudflare ZT Client")
                 .font(.largeTitle)
                 .foregroundColor(.orange)
-            Toggle("", isOn: $isOn)
+            Toggle("", isOn: $viewModel.isToggleOn)
                         .toggleStyle(SwitchToggleStyle(tint: .orange))
                         .scaleEffect(3.0)
                         .padding()

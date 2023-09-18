@@ -21,11 +21,16 @@ class ClientViewModel: ObservableObject {
     @Published var status: String = "..."
     @Published var description: String = "..."
     @Published var errorMessage: String = ""
+    @Published var isToggleOn: Bool = false {
+                    didSet {
+                        toggleStateChanged()
+                    }
+                }
 
-    private let interactorFactory: InteractorFactory
     private var statusUpdateTimer: Timer?
     private var cachedAuthToken: CachedAuthToken?
     
+    private let interactorFactory: InteractorFactory
     private let connectedText = "Connected"
     private let disconnectedText = "Disconnected"
     private let defaultConnectedMessage = "Your Internet is private"
@@ -57,6 +62,16 @@ class ClientViewModel: ObservableObject {
         statusUpdateTimer = nil
     }
     
+    private func toggleStateChanged() {
+        Task.detached { [self] in
+            if self.isToggleOn {
+                await connect()
+            } else {
+                await disconnect()
+            }
+        }
+    }
+    
     private func getStatus() async {
         let getInteractor = interactorFactory.makeGetConnectionStatus()
         do {
@@ -69,7 +84,19 @@ class ClientViewModel: ObservableObject {
         }
     }
     
-    func connect() async {
+    private func disconnect() async {
+        let getInteractor = interactorFactory.makeDisconnectFromVpn()
+        do {
+            let result = try await getInteractor.disconnect()
+            await handle(result)
+        } catch let error {
+            status = disconnectedText
+            description = defaultDisconnectedMessage
+            errorMessage = error.localizedDescription
+        }
+    }
+    
+    private func connect() async {
         let token: Int
         if let authToken = cachedAuthToken, authToken.isExpired == false {
             token = authToken.token
