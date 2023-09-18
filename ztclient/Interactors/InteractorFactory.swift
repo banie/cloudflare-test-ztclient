@@ -10,6 +10,7 @@ import Foundation
 protocol InteractorFactory {
     func makeGetAuthTokenInteractor() -> GetAuthToken
     func makeGetConnectionStatus() -> GetConnectionStatus
+    func makeDisconnectFromVpn() -> DisconnectFromVpn
     func makeConnectToVpn() -> ConnectToVpn
 }
 
@@ -20,6 +21,10 @@ class InteractorFactoryForProduction: InteractorFactory {
     
     func makeGetConnectionStatus() -> GetConnectionStatus {
         GetConnectionStatusFromDaemon()
+    }
+    
+    func makeDisconnectFromVpn() -> DisconnectFromVpn {
+        DisconnectFromVpnDaemon()
     }
     
     func makeConnectToVpn() -> ConnectToVpn {

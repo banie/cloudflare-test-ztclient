@@ -24,6 +24,8 @@
 		7134509F2AB7F3FD00A61D30 /* InteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134509E2AB7F3FD00A61D30 /* InteractorFactory.swift */; };
 		713450A12AB817D200A61D30 /* ConnectToVpn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450A02AB817D200A61D30 /* ConnectToVpn.swift */; };
 		713450A32AB8181400A61D30 /* ConnectToVpnFromDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450A22AB8181400A61D30 /* ConnectToVpnFromDaemon.swift */; };
+		713450A52AB8A02200A61D30 /* DisconnectFromVpn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450A42AB8A02200A61D30 /* DisconnectFromVpn.swift */; };
+		713450A72AB8A06200A61D30 /* DisconnectFromVpnDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450A62AB8A06200A61D30 /* DisconnectFromVpnDaemon.swift */; };
 		71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */; };
 		71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC692AB28A640056DD71 /* ztclientApp.swift */; };
 		71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC6B2AB28A640056DD71 /* ContentView.swift */; };
@@ -69,6 +71,8 @@
 		7134509E2AB7F3FD00A61D30 /* InteractorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorFactory.swift; sourceTree = "<group>"; };
 		713450A02AB817D200A61D30 /* ConnectToVpn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToVpn.swift; sourceTree = "<group>"; };
 		713450A22AB8181400A61D30 /* ConnectToVpnFromDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToVpnFromDaemon.swift; sourceTree = "<group>"; };
+		713450A42AB8A02200A61D30 /* DisconnectFromVpn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectFromVpn.swift; sourceTree = "<group>"; };
+		713450A62AB8A06200A61D30 /* DisconnectFromVpnDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectFromVpnDaemon.swift; sourceTree = "<group>"; };
 		71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		71EEEC662AB28A640056DD71 /* ztclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ztclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EEEC692AB28A640056DD71 /* ztclientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ztclientApp.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				7134507D2AB760BD00A61D30 /* GetAuthToken.swift */,
 				713450902AB77EEE00A61D30 /* GetConnectionStatus.swift */,
 				713450A02AB817D200A61D30 /* ConnectToVpn.swift */,
+				713450A42AB8A02200A61D30 /* DisconnectFromVpn.swift */,
 				7134509E2AB7F3FD00A61D30 /* InteractorFactory.swift */,
 				7134508F2AB77E1800A61D30 /* Daemon */,
 				713450802AB760EE00A61D30 /* Network */,
@@ -164,6 +169,7 @@
 			children = (
 				7134509A2AB78F7300A61D30 /* GetConnectionStatusFromDaemon.swift */,
 				713450A22AB8181400A61D30 /* ConnectToVpnFromDaemon.swift */,
+				713450A62AB8A06200A61D30 /* DisconnectFromVpnDaemon.swift */,
 				713450942AB7812300A61D30 /* SocketConnectionApi.swift */,
 				7134509C2AB78FA300A61D30 /* SocketConnectionInteractor.swift */,
 			);
@@ -365,8 +371,10 @@
 				71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */,
 				713450882AB76BCA00A61D30 /* NetworkRequestApi.swift in Sources */,
 				7134509B2AB78F7300A61D30 /* GetConnectionStatusFromDaemon.swift in Sources */,
+				713450A52AB8A02200A61D30 /* DisconnectFromVpn.swift in Sources */,
 				7134508C2AB7724A00A61D30 /* AuthenticationTokenResponse.swift in Sources */,
 				713450972AB7877F00A61D30 /* DaemonRequest.swift in Sources */,
+				713450A72AB8A06200A61D30 /* DisconnectFromVpnDaemon.swift in Sources */,
 				713450822AB7610E00A61D30 /* GetAuthTokenFromRegistrationApi.swift in Sources */,
 				713450952AB7812300A61D30 /* SocketConnectionApi.swift in Sources */,
 				71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */,
