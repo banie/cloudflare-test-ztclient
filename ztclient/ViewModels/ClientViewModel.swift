@@ -11,16 +11,37 @@ class ClientViewModel: ObservableObject {
     
     @Published var status: String = "..."
     @Published var token: String = "..."
+
+    private let interactorFactory: InteractorFactory
+    private var statusUpdateTimer: Timer?
     
-    private let SOCKET_PATH = "/tmp/daemon-lite"
-    private let decoder: JSONDecoder
+    init(interactorFactory: InteractorFactory = InteractorFactoryForProduction()) {
+        self.interactorFactory = interactorFactory
+    }
     
-    init() {
-        self.decoder = JSONDecoder()
+    /**
+     start calling getStatus and repeat it every 5s
+     */
+    func refresh() {
+        statusUpdateTimer?.invalidate()
+        statusUpdateTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            Task.detached {
+                await self.getStatus()
+            }
+        }
+    }
+    
+    /**
+     pause the timer to call getStatus, for example when app goes to background
+     */
+    func pause() {
+        statusUpdateTimer?.invalidate()
+        statusUpdateTimer = nil
     }
     
     func getAuthToken() async {
-        let authInteractor = GetAuthTokenFromRegistrationApi()
+        let authInteractor = interactorFactory.makeGetAuthTokenInteractor()
         do {
             switch try await authInteractor.get() {
             case .success(let response):
@@ -38,8 +59,8 @@ class ClientViewModel: ObservableObject {
         }
     }
     
-    func getStatus() async {
-        let getInteractor = GetConnectionStatusFromDaemon()
+    private func getStatus() async {
+        let getInteractor = interactorFactory.makeGetConnectionStatus()
         do {
             switch try await getInteractor.get() {
             case .success(let response):

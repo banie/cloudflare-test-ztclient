@@ -21,6 +21,7 @@
 		713450992AB787D500A61D30 /* DaemonRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450982AB787D500A61D30 /* DaemonRequestTests.swift */; };
 		7134509B2AB78F7300A61D30 /* GetConnectionStatusFromDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134509A2AB78F7300A61D30 /* GetConnectionStatusFromDaemon.swift */; };
 		7134509D2AB78FA300A61D30 /* SocketConnectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134509C2AB78FA300A61D30 /* SocketConnectionInteractor.swift */; };
+		7134509F2AB7F3FD00A61D30 /* InteractorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134509E2AB7F3FD00A61D30 /* InteractorFactory.swift */; };
 		71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */; };
 		71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC692AB28A640056DD71 /* ztclientApp.swift */; };
 		71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC6B2AB28A640056DD71 /* ContentView.swift */; };
@@ -63,6 +64,7 @@
 		713450982AB787D500A61D30 /* DaemonRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaemonRequestTests.swift; sourceTree = "<group>"; };
 		7134509A2AB78F7300A61D30 /* GetConnectionStatusFromDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetConnectionStatusFromDaemon.swift; sourceTree = "<group>"; };
 		7134509C2AB78FA300A61D30 /* SocketConnectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketConnectionInteractor.swift; sourceTree = "<group>"; };
+		7134509E2AB7F3FD00A61D30 /* InteractorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorFactory.swift; sourceTree = "<group>"; };
 		71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		71EEEC662AB28A640056DD71 /* ztclient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ztclient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EEEC692AB28A640056DD71 /* ztclientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ztclientApp.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				7134507D2AB760BD00A61D30 /* GetAuthToken.swift */,
 				713450902AB77EEE00A61D30 /* GetConnectionStatus.swift */,
+				7134509E2AB7F3FD00A61D30 /* InteractorFactory.swift */,
 				7134508F2AB77E1800A61D30 /* Daemon */,
 				713450802AB760EE00A61D30 /* Network */,
 			);
@@ -361,6 +364,7 @@
 				713450822AB7610E00A61D30 /* GetAuthTokenFromRegistrationApi.swift in Sources */,
 				713450952AB7812300A61D30 /* SocketConnectionApi.swift in Sources */,
 				71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */,
+				7134509F2AB7F3FD00A61D30 /* InteractorFactory.swift in Sources */,
 				71EEEC6A2AB28A640056DD71 /* ztclientApp.swift in Sources */,
 				7134507C2AB7446A00A61D30 /* ConnectionResponse.swift in Sources */,
 				7134507E2AB760BD00A61D30 /* GetAuthToken.swift in Sources */,
