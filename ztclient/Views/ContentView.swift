@@ -9,21 +9,27 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject private var viewModel = ClientViewModel()
+    @ObservedObject var viewModel: ClientViewModel
+    
+    @State private var isOn = false
     
     var body: some View {
         VStack(spacing: 20) {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Text("Cloudflare ZT Client")
+                .font(.largeTitle)
+                .foregroundColor(.orange)
+            Toggle("", isOn: $isOn)
+                        .toggleStyle(SwitchToggleStyle(tint: .orange))
+                        .scaleEffect(2.0)
+                        .padding()
             Text(viewModel.status)
+                .font(.title)
             Text(viewModel.token)
         }
         .padding(20)
         .onAppear() {
+            viewModel.refresh()
             Task.detached {
-                await self.viewModel.getStatus()
                 await self.viewModel.getAuthToken()
             }
         }
@@ -32,6 +38,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: ClientViewModel())
     }
 }

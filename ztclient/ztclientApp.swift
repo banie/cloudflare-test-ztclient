@@ -9,9 +9,27 @@ import SwiftUI
 
 @main
 struct ztclientApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: appDelegate.viewModel)
+                .frame(width: 300, height: 400)
+                .frame(minWidth: 300, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity, alignment: .center)
         }
+        .windowResizability(.contentSize)
+        .defaultSize(width: 300, height: 400)
+    }
+}
+
+class AppDelegate: NSObject, NSApplicationDelegate {
+    let viewModel = ClientViewModel()
+
+    func applicationDidBecomeActive(_ notification: Notification) {
+        viewModel.refresh()
+    }
+
+    func applicationWillResignActive(_ notification: Notification) {
+        viewModel.pause()
     }
 }
