@@ -35,9 +35,7 @@ class GetAuthTokenFromRegistrationApi: GetAuthToken {
         request.setValue(authHeaderValue, forHTTPHeaderField: authHeaderKey)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let result = try await networkRequestApi.data(for: request)
-        
-        switch result {
+        switch try await networkRequestApi.data(for: request) {
         case .success(let data):
             let response = try decoder.decode(AuthenticationTokenResponse.self, from: data)
             return .success(response)
