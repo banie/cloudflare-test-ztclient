@@ -113,27 +113,19 @@ class ClientViewModel: ObservableObject {
                             cachedAuthToken = CachedAuthToken(token: token,
                                                               expiry: Date().addingTimeInterval(5 * 60).timeIntervalSince1970)
                         } else {
-                            self.status = disconnectedText
-                            self.description = defaultDisconnectedMessage
-                            self.errorMessage = defaultErrorAuthTokenMessage
+                            await showDisconnect()
                             return
                         }
                     case .error:
-                        self.status = disconnectedText
-                        self.description = defaultDisconnectedMessage
-                        self.errorMessage = response.message ?? defaultErrorAuthTokenMessage
+                        await showDisconnect(with: response.message)
                         return
                     }
                 case .failure(let networkApiError):
-                    self.status = disconnectedText
-                    self.description = defaultDisconnectedMessage
-                    self.errorMessage = networkApiError.localizedDescription
+                    await showDisconnect(with: networkApiError.localizedDescription)
                     return
                 }
             } catch let error {
-                self.status = disconnectedText
-                self.description = defaultDisconnectedMessage
-                self.errorMessage = error.localizedDescription
+                await showDisconnect(with: error.localizedDescription)
                 return
             }
         }
@@ -161,19 +153,11 @@ class ClientViewModel: ObservableObject {
                         self.description = defaultConnectedMessage
                         self.errorMessage = ""
                     case .disconnected:
-                        self.status = disconnectedText
-                        self.description = defaultDisconnectedMessage
-                        if let message = data.message {
-                            self.errorMessage = message
-                        }
+                        showDisconnect(with: data.message)
                     }
                 }
             case .error:
-                self.status = disconnectedText
-                self.description = defaultDisconnectedMessage
-                if let message = response.message {
-                    self.errorMessage = message
-                }
+                showDisconnect(with: response.message)
             }
             
         case .failure(let error):
@@ -190,5 +174,11 @@ class ClientViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    @MainActor private func showDisconnect(with errorText: String? = nil) {
+        status = disconnectedText
+        description = defaultDisconnectedMessage
+        errorMessage = errorText ?? defaultErrorAuthTokenMessage
     }
 }
