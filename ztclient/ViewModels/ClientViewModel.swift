@@ -100,7 +100,6 @@ class ClientViewModel: ObservableObject {
         let token: Int
         if let authToken = cachedAuthToken, authToken.isExpired == false {
             token = authToken.token
-            cachedAuthToken = nil
         } else {
             let authInteractor = interactorFactory.makeGetAuthTokenInteractor()
             do {
@@ -149,9 +148,10 @@ class ClientViewModel: ObservableObject {
                 if let data = response.data {
                     switch data.daemon_status {
                     case .connected:
-                        self.status = connectedText
-                        self.description = defaultConnectedMessage
-                        self.errorMessage = ""
+                        cachedAuthToken = nil
+                        status = connectedText
+                        description = defaultConnectedMessage
+                        errorMessage = ""
                     case .disconnected:
                         showDisconnect(with: data.message)
                     }
@@ -161,16 +161,16 @@ class ClientViewModel: ObservableObject {
             }
             
         case .failure(let error):
-            self.status = disconnectedText
-            self.description = defaultDisconnectedMessage
+            status = disconnectedText
+            description = defaultDisconnectedMessage
             if let socketApiError = error as? SocketApiError {
                 switch socketApiError {
                 case .socketCreationFailure:
-                    self.errorMessage = "Failed in creating the Socket"
+                    errorMessage = "Failed in creating the Socket"
                 case .socketConnectionFailure:
-                    self.errorMessage = "Failed in connecting to the Socket"
+                    errorMessage = "Failed in connecting to the Socket"
                 case .serializationFailure(let serializationError):
-                    self.errorMessage = "Failed in serializing the data to the Socket. \(serializationError.localizedDescription)"
+                    errorMessage = "Failed in serializing the data to the Socket. \(serializationError.localizedDescription)"
                 }
             }
         }
