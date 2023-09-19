@@ -29,7 +29,10 @@ struct ContentView: View {
         }
         .padding(20)
         .onAppear() {
-            viewModel.refresh()
+            viewModel.start()
+        }
+        .onDisappear() {
+            viewModel.pause()
         }
     }
 }

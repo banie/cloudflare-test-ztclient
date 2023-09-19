@@ -44,10 +44,14 @@ class ClientViewModel: ObservableObject {
         self.interactorFactory = interactorFactory
     }
     
+    deinit {
+        pause()
+    }
+    
     /**
      start calling getStatus and repeat it every 5s
      */
-    func refresh() {
+    func start() {
         statusUpdateTimer?.invalidate()
         statusUpdateTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }

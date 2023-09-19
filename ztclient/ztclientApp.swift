@@ -26,10 +26,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let viewModel = ClientViewModel()
 
     func applicationDidBecomeActive(_ notification: Notification) {
-        viewModel.refresh()
+        viewModel.start()
     }
 
     func applicationWillResignActive(_ notification: Notification) {
+        viewModel.pause()
+    }
+    
+    func applicationWillUnhide(_ notification: Notification) {
+        viewModel.start()
+    }
+    
+    func applicationWillHide(_ notification: Notification) {
+        viewModel.pause()
+    }
+    
+    func applicationWillTerminate(_ notification: Notification) {
         viewModel.pause()
     }
 }
