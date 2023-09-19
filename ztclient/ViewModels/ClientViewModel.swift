@@ -48,6 +48,10 @@ class ClientViewModel: ObservableObject {
         pause()
     }
     
+    @MainActor func onAppDidLoad() {
+        showDisconnect()
+    }
+    
     /**
      start calling getStatus and repeat it every 5s
      */
@@ -71,6 +75,7 @@ class ClientViewModel: ObservableObject {
     
     private func toggleStateChanged() {
         Task.detached { [self] in
+            await showPendingState()
             if self.isToggleOn {
                 await connect()
             } else {
@@ -197,5 +202,11 @@ class ClientViewModel: ObservableObject {
         userInitiated = false
         isToggleOn = value
         userInitiated = true
+    }
+    
+    @MainActor private func showPendingState() {
+        status = "..."
+        description = "..."
+        errorMessage = ""
     }
 }

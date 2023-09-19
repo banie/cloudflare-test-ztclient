@@ -24,6 +24,10 @@ struct ztclientApp: App {
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     let viewModel = ClientViewModel()
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        viewModel.onAppDidLoad()
+    }
 
     func applicationDidBecomeActive(_ notification: Notification) {
         viewModel.start()
