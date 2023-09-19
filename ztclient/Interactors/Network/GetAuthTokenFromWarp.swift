@@ -1,5 +1,5 @@
 //
-//  GetAuthTokenFromRegistrationApi.swift
+//  GetAuthTokenFromWarp.swift
 //  ztclient
 //
 //  Created by banie setijoso on 2023-09-17.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GetAuthTokenFromRegistrationApi: GetAuthToken {
+class GetAuthTokenFromWarp: GetAuthToken {
     let baseUrl = "https://warp-registration.warpdir2792.workers.dev/"
     let authHeaderKey = "X-Auth-Key"
     let authHeaderValue = "3735928559"

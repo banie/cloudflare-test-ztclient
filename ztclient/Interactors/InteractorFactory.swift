@@ -17,7 +17,7 @@ protocol InteractorFactory {
 
 class InteractorFactoryForProduction: InteractorFactory {
     func makeGetAuthTokenInteractor() -> GetAuthToken {
-        GetAuthTokenFromRegistrationApi()
+        GetAuthTokenFromWarp()
     }
     
     func makeGetConnectionStatus(using socketApi: SocketConnectionApi) -> GetConnectionStatus {
