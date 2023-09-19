@@ -172,9 +172,7 @@ class ClientViewModel: ObservableObject {
             let result = try await connectInteractor.connect(with: token)
             await handle(result)
         } catch let error {
-            status = disconnectedText
-            description = defaultDisconnectedMessage
-            errorMessage = error.localizedDescription
+            await showDisconnect(with: error.localizedDescription)
         }
     }
     
