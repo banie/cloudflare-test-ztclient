@@ -214,6 +214,8 @@ class ClientViewModel: ObservableObject {
                     showErrorMessage(with: "Could not write all the bytes to socket or there was an error")
                 case .payloadSizeReadFailure, .payloadReadFailure:
                     showErrorMessage(with: "Reading 0 bytes (end of file) from socket or there was an error")
+                case .responsePayloadSizeTooLarge:
+                    showErrorMessage(with: "Daemon service is giving a response bigger than max limit expected")
                 }
             } else {
                 showErrorMessage(with: "Failed in attempting to connect to Daemon Service")

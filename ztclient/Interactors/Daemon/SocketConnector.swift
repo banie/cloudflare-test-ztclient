@@ -12,6 +12,7 @@ class SocketConnector: SocketConnectionApi {
     private var socketFD: Int32?
     
     private let SOCKET_PATH = "/tmp/daemon-lite"
+    private let maxResponsePayloadSize: UInt64 = 1000 * 4 // Maximum size for 1000 characters in UTF-8 encoding
     private let encoder: JSONEncoder
 
     init() {
@@ -78,6 +79,10 @@ class SocketConnector: SocketConnectionApi {
             return .failure(.payloadSizeReadFailure)
         }
         responsePayloadSize = UInt64(littleEndian: responsePayloadSize)
+        
+        guard responsePayloadSize < maxResponsePayloadSize else {
+            return .failure(.responsePayloadSizeTooLarge)
+        }
         
         // Read response payload
         var responsePayloadData = Data(count: Int(responsePayloadSize))

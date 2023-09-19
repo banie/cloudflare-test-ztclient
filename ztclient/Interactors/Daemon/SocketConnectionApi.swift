@@ -22,4 +22,5 @@ public enum SocketApiError: Error {
     case payloadWriteFailure
     case payloadSizeReadFailure
     case payloadReadFailure
+    case responsePayloadSizeTooLarge
 }
