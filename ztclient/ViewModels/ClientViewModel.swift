@@ -90,7 +90,7 @@ class ClientViewModel: ObservableObject {
         case .success:
             return
         case .failure:
-            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { [weak self] _ in
                 guard let self = self else { return }
                 Task.detached {
                     await self.establishSocketConnection()
@@ -210,7 +210,13 @@ class ClientViewModel: ObservableObject {
                     showErrorMessage(with: "Failed in serializing the data to the Socket. \(serializationError.localizedDescription)")
                 case .requestBeforeEstablishConnection:
                     showErrorMessage(with: "Attempting to read/write to the socket before establishing connection")
+                case .payloadSizeWriteFailure, .payloadWriteFailure:
+                    showErrorMessage(with: "Could not write all the bytes to socket or there was an error")
+                case .payloadSizeReadFailure, .payloadReadFailure:
+                    showErrorMessage(with: "Reading 0 bytes (end of file) from socket or there was an error")
                 }
+            } else {
+                showErrorMessage(with: "Failed in attempting to connect to Daemon Service")
             }
         }
     }

@@ -55,25 +55,38 @@ class SocketConnector: SocketConnectionApi {
         do {
             payloadData = try encoder.encode(request)
         } catch let parseError {
-            close(socketFD)
             return .failure(.serializationFailure(parseError))
         }
         
         let payloadSize = UInt64(payloadData.count)
         let payloadSizeData = withUnsafeBytes(of: payloadSize.littleEndian) { Data($0) }
         
-        write(socketFD, [UInt8](payloadSizeData), payloadSizeData.count)
-        write(socketFD, [UInt8](payloadData), payloadData.count)
+        var bytesWritten = write(socketFD, [UInt8](payloadSizeData), payloadSizeData.count)
+        guard bytesWritten == payloadSizeData.count else {
+            return .failure(.payloadSizeWriteFailure)
+        }
+        
+        bytesWritten = write(socketFD, [UInt8](payloadData), payloadData.count)
+        guard bytesWritten == payloadData.count else {
+            return .failure(.payloadWriteFailure)
+        }
         
         // Read response payload size
         var responsePayloadSize: UInt64 = 0
-        read(socketFD, &responsePayloadSize, MemoryLayout<UInt64>.size)
+        let bytesRead = read(socketFD, &responsePayloadSize, MemoryLayout<UInt64>.size)
+        guard bytesRead == MemoryLayout<UInt64>.size else {
+            return .failure(.payloadSizeReadFailure)
+        }
         responsePayloadSize = UInt64(littleEndian: responsePayloadSize)
         
         // Read response payload
         var responsePayloadData = Data(count: Int(responsePayloadSize))
-        _ = responsePayloadData.withUnsafeMutableBytes { ptr in
+        let responseBytesRead = responsePayloadData.withUnsafeMutableBytes { ptr in
             read(socketFD, ptr.bindMemory(to: UInt8.self).baseAddress, Int(responsePayloadSize))
+        }
+        
+        guard responseBytesRead == Int(responsePayloadSize) else {
+            return .failure(.payloadReadFailure)
         }
         
         return .success(responsePayloadData)

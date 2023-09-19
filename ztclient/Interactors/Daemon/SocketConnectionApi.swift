@@ -18,4 +18,8 @@ public enum SocketApiError: Error {
     case socketConnectionFailure
     case requestBeforeEstablishConnection
     case serializationFailure(Error)
+    case payloadSizeWriteFailure
+    case payloadWriteFailure
+    case payloadSizeReadFailure
+    case payloadReadFailure
 }
