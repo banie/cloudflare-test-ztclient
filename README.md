@@ -11,7 +11,7 @@ Notes:
 
 
 Wanted improvements if given more time:
-- I would add more unit tests such as the one to cover SocketConnectionApi
+- I would add more unit tests such as the one to cover SocketConnectionApi, and more to complete the coverage of ClientViewModel
 - I would implement the bonus tasks especially the one to package it as .pkg
 
 
