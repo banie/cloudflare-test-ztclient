@@ -7,7 +7,10 @@
 
 import Foundation
 
-class SocketConnectionInteractor: SocketConnectionApi {
+class SocketConnector: SocketConnectionApi {
+    
+    private var socketFD: Int32?
+    
     private let SOCKET_PATH = "/tmp/daemon-lite"
     private let encoder: JSONEncoder
 
@@ -15,7 +18,7 @@ class SocketConnectionInteractor: SocketConnectionApi {
         self.encoder = JSONEncoder()
     }
     
-    func data(for request: DaemonRequest) async throws -> Result<Data, SocketApiError> {
+    func openSocketConnection() async -> Result<Int32, SocketApiError> {
         // Create and configure socket
         let socketFD = socket(AF_UNIX, SOCK_STREAM, 0)
         guard socketFD != -1 else {
@@ -26,6 +29,7 @@ class SocketConnectionInteractor: SocketConnectionApi {
         addr.sun_family = sa_family_t(AF_UNIX)
         strcpy(&addr.sun_path, SOCKET_PATH)
         
+        // Open a socket connection to that file descriptor
         let result = withUnsafePointer(to: addr) {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
                 Darwin.connect(socketFD, $0, socklen_t(MemoryLayout<sockaddr_un>.size))
@@ -36,7 +40,16 @@ class SocketConnectionInteractor: SocketConnectionApi {
             close(socketFD)
             return .failure(.socketConnectionFailure)
         }
-
+        
+        self.socketFD = socketFD
+        return .success(socketFD)
+    }
+    
+    func data(for request: DaemonRequest) async throws -> Result<Data, SocketApiError> {
+        guard let socketFD = socketFD else {
+            return .failure(.requestBeforeEstablishConnection)
+        }
+        
         // Successfully connected to the socket, proceed with sending payload size and payload
         let payloadData: Data
         do {
@@ -63,8 +76,13 @@ class SocketConnectionInteractor: SocketConnectionApi {
             read(socketFD, ptr.bindMemory(to: UInt8.self).baseAddress, Int(responsePayloadSize))
         }
         
-        close(socketFD)
-        
         return .success(responsePayloadData)
+    }
+    
+    func closeSocketConnection() {
+        guard let socketFD = socketFD else {
+            return
+        }
+        close(socketFD)
     }
 }

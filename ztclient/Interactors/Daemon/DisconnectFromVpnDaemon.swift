@@ -12,7 +12,7 @@ class DisconnectFromVpnDaemon: DisconnectFromVpn {
     private let socketConnectionApi: SocketConnectionApi
     private let decoder: JSONDecoder
     
-    init(socketConnectionApi: SocketConnectionApi = SocketConnectionInteractor()) {
+    init(socketConnectionApi: SocketConnectionApi) {
         decoder = JSONDecoder()
         self.socketConnectionApi = socketConnectionApi
     }

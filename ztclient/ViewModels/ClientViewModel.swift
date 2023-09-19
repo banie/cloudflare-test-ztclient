@@ -34,6 +34,7 @@ class ClientViewModel: ObservableObject {
     private var cachedAuthToken: CachedAuthToken?
     
     private let interactorFactory: InteractorFactory
+    private let socketApi: SocketConnectionApi
     private let connectedText = "Connected"
     private let disconnectedText = "Disconnected"
     private let defaultConnectedMessage = "Your Internet is private"
@@ -42,6 +43,7 @@ class ClientViewModel: ObservableObject {
     
     init(interactorFactory: InteractorFactory = InteractorFactoryForProduction()) {
         self.interactorFactory = interactorFactory
+        socketApi = interactorFactory.makeSocketConnectionApi()
     }
     
     deinit {
@@ -50,6 +52,9 @@ class ClientViewModel: ObservableObject {
     
     @MainActor func onAppDidLoad() {
         showDisconnect()
+        Task.detached { [self] in
+            await establishSocketConnection()
+        }
     }
     
     /**
@@ -73,6 +78,27 @@ class ClientViewModel: ObservableObject {
         statusUpdateTimer = nil
     }
     
+    func onAppWillTerminate() {
+        socketApi.closeSocketConnection()
+    }
+    
+    /**
+     Will attempt to establish an open socket connection. If failed, then it will try again half a sec later
+     */
+    private func establishSocketConnection() async {
+        switch await socketApi.openSocketConnection() {
+        case .success:
+            return
+        case .failure:
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+                guard let self = self else { return }
+                Task.detached {
+                    await self.establishSocketConnection()
+                }
+            }
+        }
+    }
+    
     private func toggleStateChanged() {
         Task.detached { [self] in
             await showPendingState()
@@ -85,7 +111,7 @@ class ClientViewModel: ObservableObject {
     }
     
     private func getStatus() async {
-        let getInteractor = interactorFactory.makeGetConnectionStatus()
+        let getInteractor = interactorFactory.makeGetConnectionStatus(using: socketApi)
         do {
             let result = try await getInteractor.get()
             await handle(result)
@@ -97,7 +123,7 @@ class ClientViewModel: ObservableObject {
     }
     
     private func disconnect() async {
-        let getInteractor = interactorFactory.makeDisconnectFromVpn()
+        let getInteractor = interactorFactory.makeDisconnectFromVpn(using: socketApi)
         do {
             let result = try await getInteractor.disconnect()
             await handle(result)
@@ -141,7 +167,7 @@ class ClientViewModel: ObservableObject {
             }
         }
         
-        let connectInteractor = interactorFactory.makeConnectToVpn()
+        let connectInteractor = interactorFactory.makeConnectToVpn(using: socketApi)
         do {
             let result = try await connectInteractor.connect(with: token)
             await handle(result)
@@ -182,6 +208,8 @@ class ClientViewModel: ObservableObject {
                     showErrorMessage(with: "Failed in connecting to the Socket")
                 case .serializationFailure(let serializationError):
                     showErrorMessage(with: "Failed in serializing the data to the Socket. \(serializationError.localizedDescription)")
+                case .requestBeforeEstablishConnection:
+                    showErrorMessage(with: "Attempting to read/write to the socket before establishing connection")
                 }
             }
         }

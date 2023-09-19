@@ -9,9 +9,10 @@ import Foundation
 
 protocol InteractorFactory {
     func makeGetAuthTokenInteractor() -> GetAuthToken
-    func makeGetConnectionStatus() -> GetConnectionStatus
-    func makeDisconnectFromVpn() -> DisconnectFromVpn
-    func makeConnectToVpn() -> ConnectToVpn
+    func makeGetConnectionStatus(using socketApi: SocketConnectionApi) -> GetConnectionStatus
+    func makeDisconnectFromVpn(using socketApi: SocketConnectionApi) -> DisconnectFromVpn
+    func makeConnectToVpn(using socketApi: SocketConnectionApi) -> ConnectToVpn
+    func makeSocketConnectionApi() -> SocketConnectionApi
 }
 
 class InteractorFactoryForProduction: InteractorFactory {
@@ -19,15 +20,19 @@ class InteractorFactoryForProduction: InteractorFactory {
         GetAuthTokenFromRegistrationApi()
     }
     
-    func makeGetConnectionStatus() -> GetConnectionStatus {
-        GetConnectionStatusFromDaemon()
+    func makeGetConnectionStatus(using socketApi: SocketConnectionApi) -> GetConnectionStatus {
+        GetConnectionStatusFromDaemon(socketConnectionApi: socketApi)
     }
     
-    func makeDisconnectFromVpn() -> DisconnectFromVpn {
-        DisconnectFromVpnDaemon()
+    func makeDisconnectFromVpn(using socketApi: SocketConnectionApi) -> DisconnectFromVpn {
+        DisconnectFromVpnDaemon(socketConnectionApi: socketApi)
     }
     
-    func makeConnectToVpn() -> ConnectToVpn {
-        ConnectToVpnFromDaemon()
+    func makeConnectToVpn(using socketApi: SocketConnectionApi) -> ConnectToVpn {
+        ConnectToVpnFromDaemon(socketConnectionApi: socketApi)
+    }
+    
+    func makeSocketConnectionApi() -> SocketConnectionApi {
+        SocketConnector()
     }
 }
