@@ -26,6 +26,9 @@
 		713450A32AB8181400A61D30 /* ConnectToVpnFromDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450A22AB8181400A61D30 /* ConnectToVpnFromDaemon.swift */; };
 		713450A52AB8A02200A61D30 /* DisconnectFromVpn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450A42AB8A02200A61D30 /* DisconnectFromVpn.swift */; };
 		713450A72AB8A06200A61D30 /* DisconnectFromVpnDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713450A62AB8A06200A61D30 /* DisconnectFromVpnDaemon.swift */; };
+		7188C5CE2ABA0765009EEF7C /* SocketConnectionApiMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7188C5CD2ABA0765009EEF7C /* SocketConnectionApiMock.swift */; };
+		7188C5D02ABA09F3009EEF7C /* InteractorFactoryForMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7188C5CF2ABA09F3009EEF7C /* InteractorFactoryForMock.swift */; };
+		7188C5D22ABA0FE9009EEF7C /* ClientViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7188C5D12ABA0FE9009EEF7C /* ClientViewModelTests.swift */; };
 		71DC57442AB9EB6300427407 /* GetAuthTokenFromWarpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DC57432AB9EB6300427407 /* GetAuthTokenFromWarpTests.swift */; };
 		71DC57472AB9EC6300427407 /* NetworkRequestApiMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DC57462AB9EC6300427407 /* NetworkRequestApiMock.swift */; };
 		71E7BF522AB4633C00C1F0C9 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */; };
@@ -33,7 +36,6 @@
 		71EEEC6C2AB28A640056DD71 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC6B2AB28A640056DD71 /* ContentView.swift */; };
 		71EEEC6E2AB28A660056DD71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71EEEC6D2AB28A660056DD71 /* Assets.xcassets */; };
 		71EEEC722AB28A660056DD71 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71EEEC712AB28A660056DD71 /* Preview Assets.xcassets */; };
-		71EEEC7C2AB28A670056DD71 /* ztclientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC7B2AB28A670056DD71 /* ztclientTests.swift */; };
 		71EEEC862AB28A670056DD71 /* ztclientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC852AB28A670056DD71 /* ztclientUITests.swift */; };
 		71EEEC882AB28A670056DD71 /* ztclientUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EEEC872AB28A670056DD71 /* ztclientUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +77,9 @@
 		713450A22AB8181400A61D30 /* ConnectToVpnFromDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToVpnFromDaemon.swift; sourceTree = "<group>"; };
 		713450A42AB8A02200A61D30 /* DisconnectFromVpn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectFromVpn.swift; sourceTree = "<group>"; };
 		713450A62AB8A06200A61D30 /* DisconnectFromVpnDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisconnectFromVpnDaemon.swift; sourceTree = "<group>"; };
+		7188C5CD2ABA0765009EEF7C /* SocketConnectionApiMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketConnectionApiMock.swift; sourceTree = "<group>"; };
+		7188C5CF2ABA09F3009EEF7C /* InteractorFactoryForMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorFactoryForMock.swift; sourceTree = "<group>"; };
+		7188C5D12ABA0FE9009EEF7C /* ClientViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModelTests.swift; sourceTree = "<group>"; };
 		71DC57432AB9EB6300427407 /* GetAuthTokenFromWarpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAuthTokenFromWarpTests.swift; sourceTree = "<group>"; };
 		71DC57462AB9EC6300427407 /* NetworkRequestApiMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequestApiMock.swift; sourceTree = "<group>"; };
 		71E7BF512AB4633C00C1F0C9 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
@@ -85,7 +90,6 @@
 		71EEEC6F2AB28A660056DD71 /* ztclient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ztclient.entitlements; sourceTree = "<group>"; };
 		71EEEC712AB28A660056DD71 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		71EEEC772AB28A670056DD71 /* ztclientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ztclientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		71EEEC7B2AB28A670056DD71 /* ztclientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ztclientTests.swift; sourceTree = "<group>"; };
 		71EEEC812AB28A670056DD71 /* ztclientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ztclientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EEEC852AB28A670056DD71 /* ztclientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ztclientUITests.swift; sourceTree = "<group>"; };
 		71EEEC872AB28A670056DD71 /* ztclientUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ztclientUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				71DC57462AB9EC6300427407 /* NetworkRequestApiMock.swift */,
+				7188C5CD2ABA0765009EEF7C /* SocketConnectionApiMock.swift */,
+				7188C5CF2ABA09F3009EEF7C /* InteractorFactoryForMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -235,9 +241,9 @@
 			isa = PBXGroup;
 			children = (
 				71DC57452AB9EC5700427407 /* Mocks */,
-				71EEEC7B2AB28A670056DD71 /* ztclientTests.swift */,
 				713450982AB787D500A61D30 /* DaemonRequestTests.swift */,
 				71DC57432AB9EB6300427407 /* GetAuthTokenFromWarpTests.swift */,
+				7188C5D12ABA0FE9009EEF7C /* ClientViewModelTests.swift */,
 			);
 			path = ztclientTests;
 			sourceTree = "<group>";
@@ -409,10 +415,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71EEEC7C2AB28A670056DD71 /* ztclientTests.swift in Sources */,
 				71DC57472AB9EC6300427407 /* NetworkRequestApiMock.swift in Sources */,
 				713450992AB787D500A61D30 /* DaemonRequestTests.swift in Sources */,
+				7188C5CE2ABA0765009EEF7C /* SocketConnectionApiMock.swift in Sources */,
 				71DC57442AB9EB6300427407 /* GetAuthTokenFromWarpTests.swift in Sources */,
+				7188C5D22ABA0FE9009EEF7C /* ClientViewModelTests.swift in Sources */,
+				7188C5D02ABA09F3009EEF7C /* InteractorFactoryForMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -116,9 +116,7 @@ class ClientViewModel: ObservableObject {
             let result = try await getInteractor.get()
             await handle(result)
         } catch let error {
-            status = disconnectedText
-            description = defaultDisconnectedMessage
-            errorMessage = error.localizedDescription
+            await showDisconnect(with: error.localizedDescription)
         }
     }
     
@@ -128,9 +126,7 @@ class ClientViewModel: ObservableObject {
             let result = try await getInteractor.disconnect()
             await handle(result)
         } catch let error {
-            status = disconnectedText
-            description = defaultDisconnectedMessage
-            errorMessage = error.localizedDescription
+            await showDisconnect(with: error.localizedDescription)
         }
     }
     
